@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRHP Framework - AI Integration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+    <script>
+        // Force reload if this is an old cached version
+        if (typeof window !== 'undefined' && !window.PRHP_CONFIG_LOADED) {
+            window.PRHP_CONFIG_LOADED = true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 PRHP Framework - AI Integration Interface</h1>
+            <div class="config-info" id="configInfo">
+                <span class="status-indicator" id="statusIndicator"></span>
+                <span id="configText">Loading configuration...</span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="simulation">PRHP Simulation</button>
+                <button class="tab-btn" data-tab="quantum">Quantum Hooks</button>
+                <button class="tab-btn" data-tab="chat">AI Model API</button>
+                <button class="tab-btn" data-tab="about">About</button>
+            </div>
+
+            <!-- PRHP Simulation Tab -->
+            <div class="tab-content active" id="simulationTab">
+                <div class="simulation-container">
+                    <div class="simulation-controls">
+                        <h2>Simulation Parameters</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="levels">
+                                    Hierarchy Levels: <span id="levelsValue">9</span>
+                                </label>
+                                <input type="range" id="levels" min="1" max="100" value="9" step="1" class="slider">
+                            </div>
+                            <div class="form-group">
+                                <label for="nMonte">
+                                    Monte Carlo Iterations: <span id="nMonteValue">100</span>
+                                </label>
+                                <input type="range" id="nMonte" min="10" max="5000" value="100" step="10" class="slider">
+                            </div>
+                            <div class="form-group">
+                                <label for="seed">
+                                    Random Seed: <span id="seedValue">42</span>
+                                </label>
+                                <input type="range" id="seed" min="0" max="1000" value="42" step="1" class="slider">
+                            </div>
+                            <div class="form-group">
+                                <label for="useQuantum">
+                                    <input type="checkbox" id="useQuantum" checked class="form-checkbox">
+                                    Use Quantum Simulation
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="trackLevels">
+                                    <input type="checkbox" id="trackLevels" checked class="form-checkbox">
+                                    Track Per-Level Metrics
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Neuro-Cultural Variants:</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="variant-checkbox" value="ADHD-collectivist" checked>
+                                    ADHD-collectivist
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="variant-checkbox" value="autistic-individualist" checked>
+                                    Autistic-individualist
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" class="variant-checkbox" value="neurotypical-hybrid" checked>
+                                    Neurotypical-hybrid
+                                </label>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button id="runSimulationBtn" class="send-btn">
+                                <span class="btn-text">Run Simulation</span>
+                                <span class="btn-loader" id="simLoader" style="display: none;"></span>
+                            </button>
+                            <button id="clearSimBtn" class="clear-input-btn">Clear Results</button>
+                        </div>
+                    </div>
+
+                    <div class="simulation-results">
+                        <div class="section-header">
+                            <h2>Simulation Results</h2>
+                        </div>
+                        <div class="output-box" id="simulationOutput">
+                            <p class="placeholder">Simulation results will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantum Hooks Tab -->
+            <div class="tab-content" id="quantumTab">
+                <div class="quantum-container">
+                    <div class="quantum-controls">
+                        <h2>Quantum Hooks - Novelty Recalibration</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="useQuantumHooks">
+                                    <input type="checkbox" id="useQuantumHooks" checked class="form-checkbox">
+                                    Use Quantum Computation
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="flipProb">
+                                    Phase Flip Probability: <span id="flipProbValue">0.30</span>
+                                </label>
+                                <input type="range" id="flipProb" min="0.0" max="1.0" value="0.30" step="0.05" class="slider">
+                            </div>
+                            <div class="form-group">
+                                <label for="threshold">
+                                    Asymmetry Threshold: <span id="thresholdValue">0.70</span>
+                                </label>
+                                <input type="range" id="threshold" min="0.0" max="1.0" value="0.70" step="0.05" class="slider">
+                            </div>
+                            <div class="form-group">
+                                <label for="divergence">
+                                    Predation Divergence: <span id="divergenceValue">0.22</span>
+                                </label>
+                                <input type="range" id="divergence" min="0.0" max="1.0" value="0.22" step="0.01" class="slider">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantumVariant">Variant for Quantum Hooks:</label>
+                                <select id="quantumVariant" class="form-input">
+                                    <option value="ADHD-collectivist">ADHD-collectivist</option>
+                                    <option value="autistic-individualist">Autistic-individualist</option>
+                                    <option value="neurotypical-hybrid" selected>Neurotypical-hybrid</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button id="runQuantumBtn" class="send-btn">
+                                <span class="btn-text">Run Quantum Simulation</span>
+                                <span class="btn-loader" id="quantumLoader" style="display: none;"></span>
+                            </button>
+                            <button id="clearQuantumBtn" class="clear-input-btn">Clear Results</button>
+                        </div>
+                    </div>
+
+                    <div class="quantum-results">
+                        <div class="section-header">
+                            <h2>Quantum Hooks Results</h2>
+                        </div>
+                        <div class="output-box" id="quantumOutput">
+                            <p class="placeholder">Quantum simulation results will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Model API Tab -->
+            <div class="tab-content" id="chatTab">
+                <div class="chat-container">
+                    <!-- Parameter Controls Section -->
+                    <div class="parameter-controls-section">
+                        <div class="section-header">
+                            <h2>Fine-Tuning Parameters</h2>
+                            <button class="toggle-btn" id="toggleParamsBtn" title="Toggle parameters">▼ Show Parameters</button>
+                        </div>
+                        <div class="parameter-panel" id="parameterPanel" style="display: none;">
+                            <!-- PRHP Simulation Parameters -->
+                            <div class="parameter-group">
+                                <h3>PRHP Simulation Parameters</h3>
+                                <p class="parameter-description">These parameters control how PRHP simulations are run when processing your input</p>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="aiLevels">
+                                            Hierarchy Levels: <span id="aiLevelsValue">9</span>
+                                            <button type="button" class="info-button" data-param="aiLevels" aria-label="Hierarchy Levels info">i</button>
+                                        </label>
+                                        <input type="range" id="aiLevels" min="1" max="100" value="9" step="1" class="slider">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiNMonte">
+                                            Monte Carlo Iterations: <span id="aiNMonteValue">100</span>
+                                            <button type="button" class="info-button" data-param="aiNMonte" aria-label="Monte Carlo info">i</button>
+                                        </label>
+                                        <input type="range" id="aiNMonte" min="10" max="5000" value="100" step="10" class="slider">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiSeed">
+                                            Random Seed: <span id="aiSeedValue">42</span>
+                                            <button type="button" class="info-button" data-param="aiSeed" aria-label="Random Seed info">i</button>
+                                        </label>
+                                        <input type="range" id="aiSeed" min="0" max="1000" value="42" step="1" class="slider">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiUseQuantum">
+                                            <input type="checkbox" id="aiUseQuantum" checked class="form-checkbox">
+                                            Use Quantum Simulation
+                                            <button type="button" class="info-button" data-param="aiUseQuantum" aria-label="Use Quantum info">i</button>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiTrackLevels">
+                                            <input type="checkbox" id="aiTrackLevels" checked class="form-checkbox">
+                                            Track Per-Level Metrics
+                                            <button type="button" class="info-button" data-param="aiTrackLevels" aria-label="Track Levels info">i</button>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label>
+                                        Neuro-Cultural Variants (for simulation)
+                                        <button type="button" class="info-button" data-param="aiVariants" aria-label="Variant info">i</button>
+                                    </label>
+                                    <div class="checkbox-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" class="ai-variant-checkbox" value="ADHD-collectivist" checked>
+                                            ADHD-collectivist
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" class="ai-variant-checkbox" value="autistic-individualist" checked>
+                                            Autistic-individualist
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" class="ai-variant-checkbox" value="neurotypical-hybrid" checked>
+                                            Neurotypical-hybrid
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quantum Hooks Parameters -->
+                            <div class="parameter-group">
+                                <h3>Quantum Hooks Parameters</h3>
+                                <p class="parameter-description">These parameters control quantum hooks operations used in processing</p>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="aiUseQuantumHooks">
+                                            <input type="checkbox" id="aiUseQuantumHooks" checked class="form-checkbox">
+                                            Use Quantum Computation
+                                            <button type="button" class="info-button" data-param="aiUseQuantumHooks" aria-label="Quantum hooks info">i</button>
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiFlipProb">
+                                            Phase Flip Probability: <span id="aiFlipProbValue">0.30</span>
+                                            <button type="button" class="info-button" data-param="aiFlipProb" aria-label="Phase flip info">i</button>
+                                        </label>
+                                        <input type="range" id="aiFlipProb" min="0.0" max="1.0" value="0.30" step="0.05" class="slider">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiThreshold">
+                                            Asymmetry Threshold: <span id="aiThresholdValue">0.70</span>
+                                            <button type="button" class="info-button" data-param="aiThreshold" aria-label="Asymmetry threshold info">i</button>
+                                        </label>
+                                        <input type="range" id="aiThreshold" min="0.0" max="1.0" value="0.70" step="0.05" class="slider">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiDivergence">
+                                            Predation Divergence: <span id="aiDivergenceValue">0.22</span>
+                                            <button type="button" class="info-button" data-param="aiDivergence" aria-label="Predation divergence info">i</button>
+                                        </label>
+                                        <input type="range" id="aiDivergence" min="0.0" max="1.0" value="0.22" step="0.01" class="slider">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiQuantumVariant">
+                                            Variant for Quantum Hooks
+                                            <button type="button" class="info-button" data-param="aiQuantumVariant" aria-label="Quantum variant info">i</button>
+                                        </label>
+                                        <select id="aiQuantumVariant" class="form-input">
+                                            <option value="ADHD-collectivist">ADHD-collectivist</option>
+                                            <option value="autistic-individualist">Autistic-individualist</option>
+                                            <option value="neurotypical-hybrid" selected>Neurotypical-hybrid</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Historical Data Integration Parameters -->
+                            <div class="parameter-group">
+                                <h3>Historical Data Integration</h3>
+                                <p class="parameter-description">Integrate historical simulation data to improve accuracy and robustness</p>
+                                <div class="form-grid">
+                                    <div class="form-group full-width">
+                                        <label for="aiHistoryFile">
+                                            Historical Data File
+                                            <button type="button" class="info-button" data-param="aiHistoryFile" aria-label="Historical data file info">i</button>
+                                        </label>
+                                        <select id="aiHistoryFile" class="form-input">
+                                            <option value="">None (No historical data)</option>
+                                            <option value="examples/test_historical_class.csv" selected>test_historical_class.csv</option>
+                                            <option value="examples/test_historical.csv">test_historical.csv</option>
+                                            <option value="examples/test_historical_prhp.csv">test_historical_prhp.csv</option>
+                                        </select>
+                                        <small style="color: #6b7280; font-size: 12px;">Select a historical data file to integrate with current simulations</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiHistoricalWeight">
+                                            Historical Weight: <span id="aiHistoricalWeightValue">0.30</span>
+                                            <button type="button" class="info-button" data-param="aiHistoricalWeight" aria-label="Historical weight info">i</button>
+                                        </label>
+                                        <input type="range" id="aiHistoricalWeight" min="0.0" max="1.0" value="0.30" step="0.05" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Weight for historical data (0.0-1.0). Remaining weight goes to current data.</small>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <div style="background: #f3f4f6; padding: 12px; border-radius: 6px; margin-top: 8px;">
+                                            <strong>Current Weight:</strong> <span id="aiCurrentWeightValue">0.70</span>
+                                            <br>
+                                            <small style="color: #6b7280;">Formula: Current Weight = 1.0 - Historical Weight</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Risk-Utility Recalibration Parameters -->
+                            <div class="parameter-group">
+                                <h3>Recalibrate Risk-Utility Balance</h3>
+                                <p class="parameter-description">Balance risks and utilities to achieve target equity threshold</p>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="aiRecalibrateRiskUtility">
+                                            <input type="checkbox" id="aiRecalibrateRiskUtility" class="form-checkbox">
+                                            Enable Risk-Utility Recalibration
+                                            <button type="button" class="info-button" data-param="aiRecalibrateRiskUtility" aria-label="Risk-utility recalibration info">i</button>
+                                        </label>
+                                        <small style="color: #6b7280; font-size: 12px;">Optimize asymmetry delta and mean fidelity to meet target equity</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiTargetEquity">
+                                            Target Equity: <span id="aiTargetEquityValue">0.11</span>
+                                            <button type="button" class="info-button" data-param="aiTargetEquity" aria-label="Target equity info">i</button>
+                                        </label>
+                                        <input type="range" id="aiTargetEquity" min="0.0" max="1.0" value="0.11" step="0.01" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Desired maximum equity delta (asymmetry threshold). Default: 0.11</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Scenario Updates Parameters -->
+                            <div class="parameter-group">
+                                <h3>Add Scenario-Specific Updates</h3>
+                                <p class="parameter-description">Integrate real-time scenario updates from API or file sources</p>
+                                <div class="form-grid">
+                                    <div class="form-group full-width">
+                                        <label for="aiScenarioUpdateSourceType">
+                                            Update Source Type
+                                            <button type="button" class="info-button" data-param="aiScenarioUpdateSourceType" aria-label="Update source info">i</button>
+                                        </label>
+                                        <select id="aiScenarioUpdateSourceType" class="form-input">
+                                            <option value="none" selected>None (No scenario updates)</option>
+                                            <option value="file">File (CSV/JSON)</option>
+                                            <option value="api">API URL</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group full-width" id="aiScenarioUpdateFileGroup" style="display: none;">
+                                        <label for="aiScenarioUpdateFile">
+                                            Scenario Update File
+                                            <button type="button" class="info-button" data-param="aiScenarioUpdateFile" aria-label="Scenario file info">i</button>
+                                        </label>
+                                        <select id="aiScenarioUpdateFile" class="form-input">
+                                            <option value="">Select a file...</option>
+                                            <option value="examples/test_scenario.json">test_scenario.json</option>
+                                            <option value="examples/scenario_updates.json">scenario_updates.json</option>
+                                        </select>
+                                        <small style="color: #6b7280; font-size: 12px;">Select a scenario update file (CSV or JSON format)</small>
+                                    </div>
+                                    <div class="form-group full-width" id="aiScenarioUpdateApiGroup" style="display: none;">
+                                        <label for="aiScenarioUpdateApi">
+                                            API URL
+                                            <button type="button" class="info-button" data-param="aiScenarioUpdateApi" aria-label="Scenario API info">i</button>
+                                        </label>
+                                        <input type="text" id="aiScenarioUpdateApi" class="form-input" placeholder="https://api.example.com/crisis-updates">
+                                        <small style="color: #6b7280; font-size: 12px;">Enter API endpoint URL for real-time scenario updates</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiScenarioMergeStrategy">
+                                            Merge Strategy
+                                            <button type="button" class="info-button" data-param="aiScenarioMergeStrategy" aria-label="Merge strategy info">i</button>
+                                        </label>
+                                        <select id="aiScenarioMergeStrategy" class="form-input">
+                                            <option value="weighted" selected>Weighted Average</option>
+                                            <option value="overwrite">Overwrite</option>
+                                            <option value="average">Simple Average</option>
+                                        </select>
+                                        <small style="color: #6b7280; font-size: 12px;">How to merge updates with current results</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiScenarioUpdateWeight">
+                                            Update Weight: <span id="aiScenarioUpdateWeightValue">0.30</span>
+                                            <button type="button" class="info-button" data-param="aiScenarioUpdateWeight" aria-label="Update weight info">i</button>
+                                        </label>
+                                        <input type="range" id="aiScenarioUpdateWeight" min="0.0" max="1.0" value="0.30" step="0.05" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Weight for scenario updates (0.0-1.0). Used with 'weighted' strategy.</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI Model Parameters -->
+                            <div class="parameter-group">
+                                <h3>AI Model Parameters</h3>
+                                <p class="parameter-description">These parameters control the AI model's response generation</p>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="aiMaxTokens">
+                                            Max Tokens (Output Length): <span id="aiMaxTokensValue">1000</span>
+                                            <button type="button" class="info-button" data-param="aiMaxTokens" aria-label="Max tokens info">i</button>
+                                        </label>
+                                        <input type="range" id="aiMaxTokens" min="100" max="32000" value="1000" step="100" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Maximum number of tokens in the AI response (1 token ≈ 0.75 words)</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiTemperature">
+                                            Temperature (Creativity): <span id="aiTemperatureValue">0.70</span>
+                                            <button type="button" class="info-button" data-param="aiTemperature" aria-label="Temperature info">i</button>
+                                        </label>
+                                        <input type="range" id="aiTemperature" min="0.0" max="2.0" value="0.70" step="0.1" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Lower = more focused, Higher = more creative (0.0-2.0)</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="button-group">
+                                <button id="resetParamsBtn" class="clear-input-btn">Reset to Defaults</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conversation Management -->
+                    <div class="conversation-management">
+                        <div class="section-header">
+                            <h2>Conversation</h2>
+                            <div class="conversation-buttons">
+                                <button id="newConversationBtn" class="clear-input-btn" title="Start new conversation">🆕 New</button>
+                                <button id="saveConversationBtn" class="clear-input-btn" title="Save conversation">💾 Save</button>
+                                <button id="loadConversationBtn" class="clear-input-btn" title="Load saved conversation">📂 Load</button>
+                                <button class="clear-btn" id="clearBtn" title="Clear conversation">Clear</button>
+                            </div>
+                        </div>
+                        <div id="conversationSelector" style="display: none; margin-top: 8px;">
+                            <select id="savedConversationsSelect" class="form-input" style="width: 100%;">
+                                <option value="">Select a saved conversation...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <div class="section-header">
+                            <h2>Message</h2>
+                        </div>
+                        <div class="input-container">
+                            <textarea 
+                                id="inputBox" 
+                                class="input-box" 
+                                placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
+                                rows="3"
+                            ></textarea>
+                            <div class="button-group">
+                                <button id="sendBtn" class="send-btn">
+                                    <span class="btn-text">Send</span>
+                                    <span class="btn-loader" id="loader" style="display: none;"></span>
+                                </button>
+                                <button id="clearInputBtn" class="clear-input-btn">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages Display -->
+                    <div class="chat-messages-section">
+                        <div class="chat-messages" id="chatMessages">
+                            <p class="placeholder">Start a conversation by entering a message above...</p>
+                        </div>
+                        <!-- Follow-up Input Box -->
+                        <div class="follow-up-input-section">
+                            <div class="follow-up-input-container">
+                                <textarea 
+                                    id="followUpInputBox" 
+                                    class="follow-up-input-box" 
+                                    placeholder="Type a follow-up message... (Press Enter to send, Shift+Enter for new line)"
+                                    rows="2"
+                                ></textarea>
+                                <div class="button-group">
+                                    <button id="followUpSendBtn" class="send-btn">
+                                        <span class="btn-text">Send</span>
+                                        <span class="btn-loader" id="followUpLoader" style="display: none;"></span>
+                                    </button>
+                                    <button id="clearFollowUpBtn" class="clear-input-btn">Clear</button>
+                                </div>
+                            </div>
+
+                            <!-- Simulation Validation Parameters -->
+                            <div class="parameter-section">
+                                <h3>Validate Simulation Results</h3>
+                                <p class="parameter-description">Perform cross-validation and bias checks on simulation results</p>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="aiValidateResults">
+                                            <input type="checkbox" id="aiValidateResults" class="form-checkbox">
+                                            Enable Simulation Validation
+                                            <button type="button" class="info-button" data-param="aiValidateResults" aria-label="Validation info">i</button>
+                                        </label>
+                                        <small style="color: #6b7280; font-size: 12px;">Cross-validate results and check for bias/equity issues</small>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="aiTargetMetric">
+                                            Target Metric
+                                            <button type="button" class="info-button" data-param="aiTargetMetric" aria-label="Target metric info">i</button>
+                                        </label>
+                                        <select id="aiTargetMetric" class="form-input">
+                                            <option value="mean_fidelity" selected>Mean Fidelity</option>
+                                            <option value="utility_score">Utility Score</option>
+                                            <option value="novelty_gen">Novelty Generation</option>
+                                            <option value="mean_success_rate">Mean Success Rate</option>
+                                        </select>
+                                        <small style="color: #6b7280; font-size: 12px;">Metric to validate (target for prediction)</small>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="aiRiskMetric">
+                                            Risk Metric
+                                            <button type="button" class="info-button" data-param="aiRiskMetric" aria-label="Risk metric info">i</button>
+                                        </label>
+                                        <select id="aiRiskMetric" class="form-input">
+                                            <option value="asymmetry_delta" selected>Asymmetry Delta</option>
+                                            <option value="std">Standard Deviation</option>
+                                            <option value="mean_phi_delta">Mean Phi Delta</option>
+                                        </select>
+                                        <small style="color: #6b7280; font-size: 12px;">Risk metric to use as feature</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiCvFolds">
+                                            CV Folds: <span id="aiCvFoldsValue">5</span>
+                                            <button type="button" class="info-button" data-param="aiCvFolds" aria-label="CV folds info">i</button>
+                                        </label>
+                                        <input type="range" id="aiCvFolds" min="2" max="20" value="5" step="1" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Number of cross-validation folds (2-20)</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiBiasThreshold">
+                                            Bias Threshold: <span id="aiBiasThresholdValue">0.1</span>
+                                            <button type="button" class="info-button" data-param="aiBiasThreshold" aria-label="Bias threshold info">i</button>
+                                        </label>
+                                        <input type="range" id="aiBiasThreshold" min="0.0" max="1.0" value="0.1" step="0.01" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Maximum acceptable bias delta (0.0-1.0)</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="aiEquityThreshold">
+                                            Equity Threshold: <span id="aiEquityThresholdValue">0.1</span>
+                                            <button type="button" class="info-button" data-param="aiEquityThreshold" aria-label="Equity threshold info">i</button>
+                                        </label>
+                                        <input type="range" id="aiEquityThreshold" min="0.0" max="1.0" value="0.1" step="0.01" class="slider">
+                                        <small style="color: #6b7280; font-size: 12px;">Maximum acceptable equity deviation (0.0-1.0)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div class="tab-content" id="aboutTab">
+                <div class="about-container">
+                    <h2>About PRHP Framework</h2>
+                    <div class="about-content">
+                        <h3>Political Hierarchy Pruner – Qubit-Ready Ethical Emergence</h3>
+                        <p>PRHP prunes neuro-cultural hierarchies with IIT phi + quantum game theory.</p>
+                        
+                        <h4>Features:</h4>
+                        <ul>
+                            <li>🧠 Neuro-cultural variant simulations (ADHD-collectivist, autistic-individualist, neurotypical-hybrid)</li>
+                            <li>⚛️ Quantum entanglement via Qiskit</li>
+                            <li>📊 Monte Carlo fidelity analysis</li>
+                            <li>🔄 Novelty recalibration with phase flip injection</li>
+                            <li>🤖 AI model API integration</li>
+                        </ul>
+                        
+                        <h4>Key Metrics:</h4>
+                        <ul>
+                            <li>Monte Carlo: 84% fidelity, std&lt;0.025</li>
+                            <li>Qubit hooks via Qiskit: novelty recalibration in Bell states</li>
+                        </ul>
+                        
+                        <h4>Usage:</h4>
+                        <ol>
+                            <li>Run PRHP simulations with custom parameters</li>
+                            <li>Connect to AI models via API for enhanced analysis</li>
+                            <li>Explore quantum hooks and novelty recalibration</li>
+                        </ol>
+                        
+                        <h4>Technical Details:</h4>
+                        <pre><code># Example usage
+from src.prhp_core import simulate_prhp
+
+results = simulate_prhp(
+    levels=9,
+    variants=['ADHD-collectivist', 'autistic-individualist'],
+    n_monte=100
+)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+        </footer>
+        <!-- Parameter info tooltip -->
+        <div id="paramInfoTooltip" class="param-info-tooltip" style="display: none;">
+            <div class="param-info-content">
+                <button id="paramInfoClose" class="param-info-close" aria-label="Close parameter info">&times;</button>
+                <h4 id="paramInfoTitle">Parameter</h4>
+                <p id="paramInfoRange" class="param-info-meta"></p>
+                <p id="paramInfoPurpose" class="param-info-meta"></p>
+                <p id="paramInfoEffect"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}?v=3"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,79 @@
+# PRHP Framework Default Configuration
+
+# Simulation Parameters
+simulation:
+  levels: 9
+  n_monte: 100
+  seed: 42
+  use_quantum: true
+  track_levels: true
+  show_progress: true
+
+# Variants
+variants:
+  - ADHD-collectivist
+  - autistic-individualist
+  - neurotypical-hybrid
+
+# Dopamine Gradients
+dopamine_gradients:
+  ADHD-collectivist: 0.20
+  autistic-individualist: 0.15
+  neurotypical-hybrid: 0.18
+
+# Threshold Qubits
+threshold_qubits:
+  ADHD-collectivist: 0.65
+  autistic-individualist: 0.70
+  neurotypical-hybrid: 0.68
+
+# Asymmetry Deltas (multipliers)
+asymmetry_deltas:
+  ADHD-collectivist: 1.28  # +28%
+  autistic-individualist: 0.53  # -47%
+  neurotypical-hybrid: 1.20  # +20%
+
+# Target Metrics
+targets:
+  fidelity: 0.84
+  phi_delta: 0.12
+  phi_delta_tolerance: 0.025
+  attention_focus: 0.997
+  decoherence_rate: 0.003
+
+# Virus Extinction Parameters
+virus_extinction:
+  n_population: 100
+  n_iter: 10
+  initial_infection_rate: 0.1
+  spread_rates:
+    ADHD-collectivist: 0.12
+    autistic-individualist: -0.25
+    neurotypical-hybrid: 0.0
+
+# Meta-Empirical Parameters
+meta_empirical:
+  initial_novelty: 0.80
+  target_novelty: 0.82
+  bayesian_alpha: 2.0
+  bayesian_beta: 2.0
+
+# Logging
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_file: null  # Set to file path to enable file logging
+
+# Performance
+performance:
+  use_parallel: false
+  n_jobs: -1  # -1 means use all CPUs
+  chunk_size: 10
+
+# Visualization
+visualization:
+  figure_size: [10, 6]
+  dpi: 100
+  style: seaborn
+  save_plots: false
+  output_dir: plots/
+

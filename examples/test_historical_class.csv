@@ -1,0 +1,7 @@
+variant,mean_fidelity,std,asymmetry_delta,novelty_gen,mean_phi_delta,mean_success_rate
+ADHD-collectivist,0.84,0.025,0.28,0.9,0.12,0.75
+ADHD-collectivist,0.83,0.024,0.27,0.89,0.11,0.74
+autistic-individualist,0.82,0.023,-0.47,0.88,0.1,0.73
+autistic-individualist,0.81,0.022,-0.46,0.87,0.09,0.72
+neurotypical-hybrid,0.85,0.026,0.2,0.92,0.13,0.76
+neurotypical-hybrid,0.84,0.025,0.19,0.91,0.12,0.75
