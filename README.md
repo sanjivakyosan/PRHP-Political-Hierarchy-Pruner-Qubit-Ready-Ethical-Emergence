@@ -1,6 +1,6 @@
 # PRHP: Political Hierarchy Pruner – Qubit-Ready Ethical Emergence
 
-## ⚠️ CRITICAL: PRHP IS A RED-TEAM SIMULATOR
+PRHP IS A RED-TEAM SIMULATOR
 
 **PRHP is an INTERNAL RED-TEAM SIMULATOR for stress testing and compliance validation.**
 
