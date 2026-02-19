@@ -87,9 +87,6 @@ We welcome benchmark results from the community! To contribute:
 - Results may vary slightly based on hardware and random seed
 - For reproducible results, always set `seed=42`
 
-## Invitation
-
-**@xai engineers and community**: Test and PR your benchmark results!
 
 ---
 
